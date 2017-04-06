@@ -1,0 +1,80 @@
+
+body {
+	background-color:#222120;
+	color:white;
+}
+h1
+{
+	font-family : Impact, Charcoal, sans-serif;
+	font-size : 30pt;
+	text-align: center;
+}
+.circle
+{
+	border-radius:50%;
+  float:left;
+  position: relative;
+  width: 4vw;
+	height:4vw;
+	background-color:grey;
+  margin:.25%;
+	/* if we do images: */
+  background-position:center center;
+  background-repeat:no-repeat;
+  background-size:cover; /* you change this to "contain" if you don't want the images to be cropped */
+}
+.circle:hover {
+	background-color:blue;
+}
+.side {
+	width:10vw;
+	position:relative;
+	background-color:green;
+}
+.gameBoard {
+	width:90vw;
+	position:relative;
+	float:right;
+}
+#secret {
+	cursor:text;
+}
+.button
+{
+    border: none;
+	color:black;
+	font-family : "Trebuchet MS", "Helvetica", "sans-serif";
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+#blue {
+	background-color: #0028ff;
+}
+#red {
+	background-color: #f44336;
+	}
+#green {
+	background-color: #1dff00;
+}
+#pink {
+	background-color: #ff00f1;
+}
+#yellow {
+	background-color: #c9ff00;
+}
+#orange {
+	background-color: #ff8a00;
+}
+#white {
+	background-color:white;
+}
+#buttons
+{
+	text-align: center;
+	margin-bottom: 20px;
+}
