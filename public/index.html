@@ -4,102 +4,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>Little Brother's Lite Brite Game</title>
 
-<link rel="stylesheet" type="text/css" href="/litebrite.css">
-<style>
+<link rel="stylesheet" type="text/css" href="/stylesheets/litebrite.css">
 
-body {
-	color:white;
-}
-h1
-{
-	font-family : Impact, Charcoal, sans-serif;
-	font-size : 30pt;
-	text-align: center;
-}
-.circle
-{
-	border-radius:50%;
-	float:left;
-	position: relative;
-	width: 4vw;
-	height:4vw;
-	border-style: solid;
-	border-width: 0.5px;
-	border-color: grey;
-	margin:.25%;
-}
-.circle:hover {
-	opacity:0.8;
-	background-color:#0E0203;}
-.side {
-	width:10vw;
-	position:relative;
-	background-color:green;
-}
-.gameBoard {
-	width:90vw;
-	position:relative;
-	float:right;
-}
-#secret {
-	cursor:text;
-}
-.button
-{
-    border: none;
-	color:black;
-	font-family : "Trebuchet MS", "Helvetica", "sans-serif";
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 2vw 1vw;
-    cursor: pointer;
-	transition:.4s;
-	width:5vw;
-}
-
-.button:hover {
-	color:white;
-}
-#blue {
-	background-color: #1A63FF;
-}
-#red {
-	background-color: #f44336;
-	}
-#green {
-	background-color: #1dff00;
-}
-#pink {
-	background-color: #ff00f1;
-}
-#yellow {
-	background-color: #c9ff00;
-}
-#orange {
-	background-color: #ff8a00;
-}
-#white {
-	background-color:white;
-}
-#black {
-	background-color:#0E0203;
-
-}
-#erase {
-	color:grey;
-	border-style: solid;
-    border-width: 0.5px;
-	border-color: grey;
-}
-.palette
-{
-	text-align: center;
-	margin-bottom: 20px;
-}
-</style>
 <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular.min.js"></script>
 
@@ -109,7 +15,7 @@ h1
 var app = angular.module("myApp", []);
 app.controller('TestCtrl', function($scope) {
     $scope.range = function() {
-        return new Array(128);
+        return new Array(246);
     };
 	$scope.working = "hi";
 });
@@ -118,42 +24,7 @@ app.controller('TestCtrl', function($scope) {
 
 <!--This script-section is what talks to the server to 1. tell the server if a user clicked a button, and 2. tell the webpage which pixel-circles have been colored -->
 <script src="/socket.io/socket.io.js"></script>
-<script>
-var selectedColor = "white";
-
-function changeColor(id) {
-	var chosenColor = $(id).css("backgroundColor");
-	selectedColor = chosenColor;
-}
-
-$(function()
-{
-	  var socket = io();
-	  //send the color
-	  $('.circle').click(function() {
-		  var selectedCircle = $(this).attr("id");
-		  var jsonColor = {'id': selectedCircle, 'color': selectedColor};
-		  			console.log(jsonColor);
-		  socket.emit('colorMessage', jsonColor);
-	  });
-	  //get a list of all the colors
-	  socket.on('allColors', function(allColors) {
-		  $.each(allColors, function(i) {
-			  /*
-			  if($('#' + allColors[i].id).css("background-color") != "rgb(14, 2, 3)") {
-				  $('#' + allColors[i].id).css("border-color", "rgb(14, 2, 3)");
-			  }
-			  */
-			  $('#' + allColors[i].id).css("background-color", allColors[i].color);
-		  });
-	  });
-	  //in case things get crazy
-	  $('#secret').click(function() {
-		  var pass = prompt("nice find, what's the pass to reset?", "putinsux");
-		  socket.emit('reset', pass);
-	  });
-});
-</script>
+<script src="/javascripts/litebrite.js"></script>
 </head>
 
 <body id="black">
@@ -421,7 +292,7 @@ $(function()
       <div class="circle" id="237"></div>
       <div class="circle" id="238"></div>
       <div class="circle" id="239"></div>
-      
+
       <div class="circle" id="240"></div>
       <div class="circle" id="241"></div>
       <div class="circle" id="242"></div>

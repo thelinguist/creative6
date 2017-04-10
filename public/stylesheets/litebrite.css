@@ -1,6 +1,5 @@
 
 body {
-	background-color:#222120;
 	color:white;
 }
 h1
@@ -12,20 +11,18 @@ h1
 .circle
 {
 	border-radius:50%;
-  float:left;
-  position: relative;
-  width: 4vw;
+	float:left;
+	position: relative;
+	width: 4vw;
 	height:4vw;
-	background-color:grey;
-  margin:.25%;
-	/* if we do images: */
-  background-position:center center;
-  background-repeat:no-repeat;
-  background-size:cover; /* you change this to "contain" if you don't want the images to be cropped */
+	border-style: solid;
+	border-width: 0.5px;
+	border-color: grey;
+	margin:.25%;
 }
 .circle:hover {
-	background-color:blue;
-}
+	opacity:0.8;
+	background-color:#0E0203;}
 .side {
 	width:10vw;
 	position:relative;
@@ -49,11 +46,17 @@ h1
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
-    margin: 4px 2px;
+    margin: 2vw 1vw;
     cursor: pointer;
+	transition:.4s;
+	width:5vw;
+}
+
+.button:hover {
+	color:white;
 }
 #blue {
-	background-color: #0028ff;
+	background-color: #1A63FF;
 }
 #red {
 	background-color: #f44336;
@@ -73,7 +76,17 @@ h1
 #white {
 	background-color:white;
 }
-#buttons
+#black {
+	background-color:#0E0203;
+
+}
+#erase {
+	color:grey;
+	border-style: solid;
+    border-width: 0.5px;
+	border-color: grey;
+}
+.palette
 {
 	text-align: center;
 	margin-bottom: 20px;
