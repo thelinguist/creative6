@@ -39,5 +39,7 @@ io.on('connection', function(socket){
   });
   
 });
+
 //whatever this line does, don't forget it at the end
+module.exports = io;		// REQ'D for socket.io to listen
 module.exports = router;
