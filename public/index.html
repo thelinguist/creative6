@@ -1,0 +1,437 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Little Brother's Lite Brite Game</title>
+
+<link rel="stylesheet" type="text/css" href="/litebrite.css">
+<style>
+
+body {
+	color:white;
+}
+h1
+{
+	font-family : Impact, Charcoal, sans-serif;
+	font-size : 30pt;
+	text-align: center;
+}
+.circle
+{
+	border-radius:50%;
+	float:left;
+	position: relative;
+	width: 4vw;
+	height:4vw;
+	border-style: solid;
+	border-width: 0.5px;
+	border-color: grey;
+	margin:.25%;
+}
+.circle:hover {
+	opacity:0.8;
+	background-color:#0E0203;}
+.side {
+	width:10vw;
+	position:relative;
+	background-color:green;
+}
+.gameBoard {
+	width:90vw;
+	position:relative;
+	float:right;
+}
+#secret {
+	cursor:text;
+}
+.button
+{
+    border: none;
+	color:black;
+	font-family : "Trebuchet MS", "Helvetica", "sans-serif";
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 2vw 1vw;
+    cursor: pointer;
+	transition:.4s;
+	width:5vw;
+}
+
+.button:hover {
+	color:white;
+}
+#blue {
+	background-color: #1A63FF;
+}
+#red {
+	background-color: #f44336;
+	}
+#green {
+	background-color: #1dff00;
+}
+#pink {
+	background-color: #ff00f1;
+}
+#yellow {
+	background-color: #c9ff00;
+}
+#orange {
+	background-color: #ff8a00;
+}
+#white {
+	background-color:white;
+}
+#black {
+	background-color:#0E0203;
+
+}
+#erase {
+	color:grey;
+	border-style: solid;
+    border-width: 0.5px;
+	border-color: grey;
+}
+.palette
+{
+	text-align: center;
+	margin-bottom: 20px;
+}
+</style>
+<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular.min.js"></script>
+
+<script>
+/*this script was supposed to create the grid of circles for me, but it doesn't work. It's an angular script*/
+/*
+var app = angular.module("myApp", []);
+app.controller('TestCtrl', function($scope) {
+    $scope.range = function() {
+        return new Array(128);
+    };
+	$scope.working = "hi";
+});
+*/
+</script>
+
+<!--This script-section is what talks to the server to 1. tell the server if a user clicked a button, and 2. tell the webpage which pixel-circles have been colored -->
+<script src="/socket.io/socket.io.js"></script>
+<script>
+var selectedColor = "white";
+
+function changeColor(id) {
+	var chosenColor = $(id).css("backgroundColor");
+	selectedColor = chosenColor;
+}
+
+$(function()
+{
+	  var socket = io();
+	  //send the color
+	  $('.circle').click(function() {
+		  var selectedCircle = $(this).attr("id");
+		  var jsonColor = {'id': selectedCircle, 'color': selectedColor};
+		  			console.log(jsonColor);
+		  socket.emit('colorMessage', jsonColor);
+	  });
+	  //get a list of all the colors
+	  socket.on('allColors', function(allColors) {
+		  $.each(allColors, function(i) {
+			  /*
+			  if($('#' + allColors[i].id).css("background-color") != "rgb(14, 2, 3)") {
+				  $('#' + allColors[i].id).css("border-color", "rgb(14, 2, 3)");
+			  }
+			  */
+			  $('#' + allColors[i].id).css("background-color", allColors[i].color);
+		  });
+	  });
+	  //in case things get crazy
+	  $('#secret').click(function() {
+		  var pass = prompt("nice find, what's the pass to reset?", "putinsux");
+		  socket.emit('reset', pass);
+	  });
+});
+</script>
+</head>
+
+<body id="black">
+<h1>Little Brother<span id="secret">'</span>s Lite Brite</h1>
+
+<div class="palette">
+
+    <div class="button" id="pink" onclick="changeColor(pink)">Pink</div>
+    <div class="button" id="red" onclick="changeColor(red)">Red</div>
+    <div class="button" id="yellow" onclick="changeColor(yellow)">Yellow</div>
+    <div class="button" id="orange" onclick="changeColor(orange)">Orange</div>
+    <div class="button" id="green" onclick="changeColor(green)">Green</div>
+    <div class="button" id="blue" onclick="changeColor(blue)">Blue</div>
+    <div class="button" id="white" onclick="changeColor(white)">White</div>
+    <div class="button" id="erase" onclick="changeColor(erase)">Erase</div>
+
+</div>
+
+<div class="side">
+</div>
+<!-- angular stuff
+<div ng-app='app' ng-controller="TestCtrl">
+-->
+    <div class="gameBoard">
+<!--
+    	<div class="circle" ng-repeat="circle in range">{{working}}</div>
+-->
+      <div class="circle" id="0"></div>
+      <div class="circle" id="1"></div>
+      <div class="circle" id="2"></div>
+      <div class="circle" id="3"></div>
+      <div class="circle" id="4"></div>
+      <div class="circle" id="5"></div>
+      <div class="circle" id="6"></div>
+      <div class="circle" id="7"></div>
+      <div class="circle" id="8"></div>
+      <div class="circle" id="9"></div>
+      <div class="circle" id="10"></div>
+      <div class="circle" id="11"></div>
+      <div class="circle" id="12"></div>
+      <div class="circle" id="13"></div>
+      <div class="circle" id="14"></div>
+      <div class="circle" id="15"></div>
+      <div class="circle" id="16"></div>
+      <div class="circle" id="17"></div>
+      <div class="circle" id="18"></div>
+      <div class="circle" id="19"></div>
+      <div class="circle" id="20"></div>
+      <div class="circle" id="21"></div>
+      <div class="circle" id="22"></div>
+      <div class="circle" id="23"></div>
+      <div class="circle" id="24"></div>
+      <div class="circle" id="25"></div>
+      <div class="circle" id="26"></div>
+      <div class="circle" id="27"></div>
+      <div class="circle" id="28"></div>
+      <div class="circle" id="29"></div>
+      <div class="circle" id="30"></div>
+      <div class="circle" id="31"></div>
+      <div class="circle" id="32"></div>
+      <div class="circle" id="33"></div>
+      <div class="circle" id="34"></div>
+      <div class="circle" id="35"></div>
+      <div class="circle" id="36"></div>
+      <div class="circle" id="37"></div>
+      <div class="circle" id="38"></div>
+      <div class="circle" id="39"></div>
+      <div class="circle" id="40"></div>
+      <div class="circle" id="41"></div>
+      <div class="circle" id="42"></div>
+      <div class="circle" id="43"></div>
+      <div class="circle" id="44"></div>
+      <div class="circle" id="45"></div>
+      <div class="circle" id="46"></div>
+      <div class="circle" id="47"></div>
+      <div class="circle" id="48"></div>
+      <div class="circle" id="49"></div>
+      <div class="circle" id="50"></div>
+      <div class="circle" id="51"></div>
+      <div class="circle" id="52"></div>
+      <div class="circle" id="53"></div>
+      <div class="circle" id="54"></div>
+      <div class="circle" id="55"></div>
+      <div class="circle" id="56"></div>
+      <div class="circle" id="57"></div>
+      <div class="circle" id="58"></div>
+      <div class="circle" id="59"></div>
+      <div class="circle" id="60"></div>
+      <div class="circle" id="61"></div>
+      <div class="circle" id="62"></div>
+      <div class="circle" id="63"></div>
+      <div class="circle" id="64"></div>
+      <div class="circle" id="65"></div>
+      <div class="circle" id="66"></div>
+      <div class="circle" id="67"></div>
+      <div class="circle" id="68"></div>
+      <div class="circle" id="69"></div>
+      <div class="circle" id="70"></div>
+      <div class="circle" id="71"></div>
+      <div class="circle" id="72"></div>
+      <div class="circle" id="73"></div>
+      <div class="circle" id="74"></div>
+      <div class="circle" id="75"></div>
+      <div class="circle" id="76"></div>
+      <div class="circle" id="77"></div>
+      <div class="circle" id="78"></div>
+      <div class="circle" id="79"></div>
+      <div class="circle" id="80"></div>
+      <div class="circle" id="81"></div>
+      <div class="circle" id="82"></div>
+      <div class="circle" id="83"></div>
+      <div class="circle" id="84"></div>
+      <div class="circle" id="85"></div>
+      <div class="circle" id="86"></div>
+      <div class="circle" id="87"></div>
+      <div class="circle" id="88"></div>
+      <div class="circle" id="89"></div>
+      <div class="circle" id="90"></div>
+      <div class="circle" id="91"></div>
+      <div class="circle" id="92"></div>
+      <div class="circle" id="93"></div>
+      <div class="circle" id="94"></div>
+      <div class="circle" id="95"></div>
+      <div class="circle" id="96"></div>
+      <div class="circle" id="97"></div>
+      <div class="circle" id="98"></div>
+      <div class="circle" id="99"></div>
+      <div class="circle" id="100"></div>
+      <div class="circle" id="101"></div>
+      <div class="circle" id="102"></div>
+      <div class="circle" id="103"></div>
+      <div class="circle" id="104"></div>
+      <div class="circle" id="105"></div>
+      <div class="circle" id="106"></div>
+      <div class="circle" id="107"></div>
+      <div class="circle" id="108"></div>
+      <div class="circle" id="109"></div>
+      <div class="circle" id="110"></div>
+      <div class="circle" id="111"></div>
+      <div class="circle" id="112"></div>
+      <div class="circle" id="113"></div>
+      <div class="circle" id="114"></div>
+      <div class="circle" id="115"></div>
+      <div class="circle" id="116"></div>
+      <div class="circle" id="117"></div>
+      <div class="circle" id="118"></div>
+      <div class="circle" id="119"></div>
+      <div class="circle" id="120"></div>
+      <div class="circle" id="121"></div>
+      <div class="circle" id="122"></div>
+      <div class="circle" id="123"></div>
+      <div class="circle" id="124"></div>
+      <div class="circle" id="125"></div>
+      <div class="circle" id="126"></div>
+      <div class="circle" id="127"></div>
+      <div class="circle" id="128"></div>
+      <div class="circle" id="129"></div>
+      <div class="circle" id="130"></div>
+      <div class="circle" id="131"></div>
+      <div class="circle" id="132"></div>
+      <div class="circle" id="133"></div>
+      <div class="circle" id="134"></div>
+      <div class="circle" id="135"></div>
+      <div class="circle" id="136"></div>
+      <div class="circle" id="137"></div>
+      <div class="circle" id="138"></div>
+      <div class="circle" id="139"></div>
+      <div class="circle" id="140"></div>
+      <div class="circle" id="141"></div>
+      <div class="circle" id="142"></div>
+      <div class="circle" id="143"></div>
+      <div class="circle" id="144"></div>
+      <div class="circle" id="145"></div>
+      <div class="circle" id="146"></div>
+      <div class="circle" id="147"></div>
+      <div class="circle" id="148"></div>
+      <div class="circle" id="149"></div>
+      <div class="circle" id="150"></div>
+      <div class="circle" id="151"></div>
+      <div class="circle" id="152"></div>
+      <div class="circle" id="153"></div>
+      <div class="circle" id="154"></div>
+      <div class="circle" id="155"></div>
+      <div class="circle" id="156"></div>
+      <div class="circle" id="157"></div>
+      <div class="circle" id="158"></div>
+      <div class="circle" id="159"></div>
+      <div class="circle" id="160"></div>
+      <div class="circle" id="161"></div>
+      <div class="circle" id="162"></div>
+      <div class="circle" id="163"></div>
+      <div class="circle" id="164"></div>
+      <div class="circle" id="165"></div>
+      <div class="circle" id="166"></div>
+      <div class="circle" id="167"></div>
+      <div class="circle" id="168"></div>
+      <div class="circle" id="169"></div>
+      <div class="circle" id="170"></div>
+      <div class="circle" id="171"></div>
+      <div class="circle" id="172"></div>
+      <div class="circle" id="173"></div>
+      <div class="circle" id="174"></div>
+      <div class="circle" id="175"></div>
+      <div class="circle" id="176"></div>
+      <div class="circle" id="177"></div>
+      <div class="circle" id="178"></div>
+      <div class="circle" id="179"></div>
+      <div class="circle" id="180"></div>
+      <div class="circle" id="181"></div>
+      <div class="circle" id="182"></div>
+      <div class="circle" id="183"></div>
+      <div class="circle" id="184"></div>
+      <div class="circle" id="185"></div>
+      <div class="circle" id="186"></div>
+      <div class="circle" id="187"></div>
+      <div class="circle" id="188"></div>
+      <div class="circle" id="189"></div>
+      <div class="circle" id="190"></div>
+      <div class="circle" id="191"></div>
+      <div class="circle" id="192"></div>
+      <div class="circle" id="193"></div>
+      <div class="circle" id="194"></div>
+      <div class="circle" id="195"></div>
+      <div class="circle" id="196"></div>
+      <div class="circle" id="197"></div>
+      <div class="circle" id="198"></div>
+      <div class="circle" id="199"></div>
+      <div class="circle" id="200"></div>
+      <div class="circle" id="201"></div>
+      <div class="circle" id="202"></div>
+      <div class="circle" id="203"></div>
+      <div class="circle" id="204"></div>
+      <div class="circle" id="205"></div>
+      <div class="circle" id="206"></div>
+      <div class="circle" id="207"></div>
+      <div class="circle" id="208"></div>
+      <div class="circle" id="209"></div>
+      <div class="circle" id="210"></div>
+      <div class="circle" id="211"></div>
+      <div class="circle" id="212"></div>
+      <div class="circle" id="213"></div>
+      <div class="circle" id="214"></div>
+      <div class="circle" id="215"></div>
+      <div class="circle" id="216"></div>
+      <div class="circle" id="217"></div>
+      <div class="circle" id="218"></div>
+      <div class="circle" id="219"></div>
+      <div class="circle" id="220"></div>
+      <div class="circle" id="221"></div>
+      <div class="circle" id="222"></div>
+      <div class="circle" id="223"></div>
+      <div class="circle" id="224"></div>
+      <div class="circle" id="225"></div>
+      <div class="circle" id="226"></div>
+      <div class="circle" id="227"></div>
+      <div class="circle" id="228"></div>
+      <div class="circle" id="229"></div>
+      <div class="circle" id="230"></div>
+      <div class="circle" id="231"></div>
+      <div class="circle" id="232"></div>
+      <div class="circle" id="233"></div>
+      <div class="circle" id="234"></div>
+      <div class="circle" id="235"></div>
+      <div class="circle" id="236"></div>
+      <div class="circle" id="237"></div>
+      <div class="circle" id="238"></div>
+      <div class="circle" id="239"></div>
+      
+      <div class="circle" id="240"></div>
+      <div class="circle" id="241"></div>
+      <div class="circle" id="242"></div>
+      <div class="circle" id="243"></div>
+      <div class="circle" id="244"></div>
+      <div class="circle" id="245"></div>
+      <div class="circle" id="246"></div>
+  </div>
+  <!-- end angular stuff
+</div>
+-->
+</body>
+</html>
