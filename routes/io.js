@@ -1,5 +1,5 @@
 //this is where the events and stuff comes from
-var io = require('socket.io')(http);
+var io = require('socket.io')();
 //TODO: init all pixels instead of init an array
 var colors = [];
 
@@ -13,13 +13,13 @@ io.on('connection', function(socket){
     console.log('user disconnected');
   });
 
-  //this function is for the colors, it saves the input to "colors" and tells everyone 
+  //this function is for the colors, it saves the input to "colors" and tells everyone
   socket.on('colorMessage', function(colorMsg) {
     colors.push({id: colorMsg['id'], color: colorMsg['color']});
     console.log(colors);
     io.emit('allColors', colors);
   });
-  
+
   //this resets everything, in case we need to clear the board
   socket.on('reset', function(res) {
 	  if(res == "farsi") {
@@ -27,8 +27,7 @@ io.on('connection', function(socket){
 	  	io.emit('allColors', colors);	//you need to refresh the page to get this to work.. find a way to reset the colors to grey (the colors only keeps track of the changes, so clearing it won't tell the browser to change them back
 	  }
   });
-  
+
 });
 
 module.exports = io;		// REQ'D for socket.io to listen
-
