@@ -1,7 +1,5 @@
 var express = require('express');
-var app = express();
 var router = express.Router();
-app.use("/*", router);
 
 var http = require('http').Server(express);
 
@@ -11,7 +9,7 @@ var io = require('socket.io')(http);
 var colors = [];
 
 /* this is the main page we will serve */
-router.get('/*', function(req, res){
+router.get('/', function(req, res){
     console.log("I'm here...");
   res.sendFile('login.html', {root:"public"});
 });
