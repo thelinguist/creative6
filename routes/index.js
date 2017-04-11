@@ -1,5 +1,7 @@
 var express = require('express');
+var app = express();
 var router = express.Router();
+app.use("/*", router);
 
 var http = require('http').Server(express);
 
