@@ -10,6 +10,7 @@ var colors = [];
 
 /* this is the main page we will serve */
 router.get('/', function(req, res){
+    console.log("I'm here...");
   res.sendFile('login.html', {root:"public"});
 });
 
