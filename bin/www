@@ -7,7 +7,7 @@
 var app = require('../app');
 var debug = require('debug')('creative-6:server');
 var http = require('http');
-var io = require('../io');	//REQ'D for IO to listen. My io is actually index.js, so move io stuff to an io.js file
+var io = require('../routes/io');	//REQ'D for IO to listen. My io is actually index.js, so move io stuff to an io.js file
 /**
  * Get port from environment and store in Express.
  */
