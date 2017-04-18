@@ -2,8 +2,8 @@
 var io = require('socket.io')();
 
 //mongo stuff, idk why it isn't working
-var mongoose = require('mongoose');
-var Game = mongoose.model('Game');
+// var mongoose = require('mongoose');
+// var Game = mongoose.model('Game');
 
 //TODO: init all pixels instead of init an array
 var colors = [];

@@ -10,7 +10,8 @@ module.exports = function(app) {
         if (req.session.user) {
             var message = req.session.msg;
             req.session.msg = undefined;
-            res.render('index', {user:req.session.username,msg:message});
+            // res.render('index', {user:req.session.username,msg:message});
+            res.render('index');
         } else {
             console.log("redirecting to /login");
             req.session.msg = undefined;
