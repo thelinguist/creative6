@@ -19,7 +19,8 @@ function joinGame() {
     console.log("setting form to join game");
     var value =
         "<input type=\"submit\" formmethod=\"post\" formaction=\"/join\" value=\"join current game\"/>\n" +
-        "<input type=\"submit\" onclick=\"joinNewGame()\" value=\"join new game\" />";
+        "<input type=\"submit\" onclick=\"joinNewGame()\" value=\"join new game\" />" +
+        "<input type=\"submit\" onclick=\"setForm()\" value=\"cancel\">";
     document.getElementById("chooseAction").innerHTML = value;
 }
 
