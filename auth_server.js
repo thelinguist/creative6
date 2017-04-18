@@ -4,7 +4,7 @@ var cookieParser = require('cookie-parser');
 var expressSession = require('express-session');
 var mongoStore = require('connect-mongo')({session: expressSession});
 var mongoose = require('mongoose');
-require('./models/users_model.js');
+require('./models/user_model.js');
 var conn = mongoose.connect('mongodb://localhost/myapp');
 var app = express();
 app.engine('.html', require('ejs').__express);
