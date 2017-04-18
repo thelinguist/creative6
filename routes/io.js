@@ -1,12 +1,23 @@
 //this is where the events and stuff comes from
 var io = require('socket.io')();
 
-//mongo stuff
+//mongo stuff, idk why it isn't working
 var mongoose = require('mongoose');
 var Game = mongoose.model('Game');
 
 //TODO: init all pixels instead of init an array
 var colors = [];
+
+//let the server pick the colors, not the browser NOTE: not in use yet
+var blue ="#1A63FF";
+var red ="#f44336";
+var green = "#1dff00";
+var pink = "#ff00f1"
+var yellow ="#c9ff00";
+var orange = "#ff8a00";
+var white = "white";
+var black = "#0E0203";
+
 
 
 //io.on = when request detected
