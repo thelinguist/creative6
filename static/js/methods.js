@@ -38,4 +38,9 @@ function setForm() {
         "<input type=\"submit\" onclick=\"joinGame()\" value=\"Join Game\"/>\n" +
         "<input type=\"submit\" onclick=\"createGame()\" value=\"Create New Game\"/>";
     document.getElementById("chooseAction").innerHTML = value;
+
+
+function onMainLoad() {
+    onLoad();
+    setForm();
 }
