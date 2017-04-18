@@ -25,7 +25,7 @@ exports.register = function(req, res){
     //   res.redirect('/');
     // }
     // });
-    console.log(req.body);
+    // console.log(req.body);
     res.session.error = err;
     res.redirect('/register');
 };
