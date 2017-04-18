@@ -41,6 +41,7 @@ function setForm() {
 
 
 function onMainLoad() {
+    console.log("in on main load");
     onLoad();
     setForm();
 }
