@@ -1,5 +1,10 @@
 //this is where the events and stuff comes from
 var io = require('socket.io')();
+
+//mongo stuff
+var mongoose = require('mongoose');
+var Game = mongoose.model('Game');
+
 //TODO: init all pixels instead of init an array
 var colors = [];
 
