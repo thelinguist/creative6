@@ -54,16 +54,6 @@ exports.login = function(req, res){
     }
   });
 };
-exports.getUserProfile = function(req, res) {
-  User.findOne({ _id: req.session.user })
-  .exec(function(err, user) {
-    if (!user){
-      res.json(404, {err: 'User Not Found.'});
-    } else {
-      res.json(user);
-    }
-  });
-};
 exports.updateUser = function(req, res){
   User.findOne({ _id: req.session.user })
   .exec(function(err, user) {
