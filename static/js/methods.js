@@ -33,7 +33,7 @@ function joinNewGame() {
 }
 
 function setForm() {
-    console.lot("setting form to default");
+    console.log("setting form to default");
     var value =
         "<input type=\"submit\" onclick=\"joinGame()\" value=\"Join Game\"/>\n" +
         "<input type=\"submit\" onclick=\"createGame()\" value=\"Create New Game\"/>";
