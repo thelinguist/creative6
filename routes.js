@@ -58,5 +58,5 @@ module.exports = function(app) {
     app.post('/user/delete', users.deleteUser);
     app.post('/login', users.login);
     app.post('/join', users.notImplemented);
-    app.post('/create' users.notImplemented);
+    app.post('/create', users.notImplemented);
 }
