@@ -10,6 +10,7 @@ module.exports = function(app) {
         if (req.session.user) {
             res.render('index');
         } else {
+            req.session.msg = "";
             res.redirect('/login');
         }
     });
