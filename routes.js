@@ -17,7 +17,7 @@ module.exports = function(app) {
     });
     app.get('/litebrite', function(req, res){
         console.log("/litebrite api called");
-        if (req.session.user) {
+        if (req.session.user && req.session.current_game) {
             res.render('litebrite');
         } else {
             console.log("redirecting to /login");
