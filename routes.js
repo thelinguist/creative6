@@ -11,7 +11,7 @@ module.exports = function(app) {
             res.render('index');
         } else {
             console.log("redirecting to /login");
-            req.session.msg = "nothing";
+            req.session.msg = "";
             res.redirect('/login');
         }
     });
