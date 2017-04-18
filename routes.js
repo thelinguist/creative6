@@ -10,6 +10,7 @@ module.exports = function(app) {
         if (req.session.user) {
             res.render('index');
         } else {
+            console.log("redirecting to /login");
             req.session.msg = "";
             res.redirect('/login');
         }
@@ -20,7 +21,7 @@ module.exports = function(app) {
             res.render('litebrite');
         } else {
             console.log("redirecting to /login");
-            res.redirect('/login', {msg:req.session.msg});
+            res.redirect('/login');
         }
     });
     app.get('/register', function(req, res){
@@ -37,7 +38,7 @@ module.exports = function(app) {
             console.log("redirecting to /")
             res.redirect('/');
         }
-        res.render('login');
+        res.render('login', {msg:req.sesson.msg});
     });
 
     app.get('/logout', function(req, res){
