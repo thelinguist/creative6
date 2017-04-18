@@ -26,6 +26,7 @@ exports.register = function(req, res){
     // }
     // });
     // console.log(req.body);
+    var err = "not implemented yet";
     res.session.error = err;
     res.redirect('/register');
 };
