@@ -7,27 +7,28 @@ function hashPW(pwd){
 }
 exports.register = function(req, res){
     console.log("Begin exports.register");
-    // var user = new User({username:req.body.username});
-    // console.log("after new user exports.signup");
-    // // if (req.body.password !== )
-    // user.set('hashed_password', hashPW(req.body.password));
-    // console.log("after hashing user exports.signup");
-    // user.save(function(err) {
-    // console.log("In exports.signup");
-    // console.log(err);
-    // if (err){
-    //   req.session.msg = err;
-    //   res.redirect('/register');
-    // } else {
-    //   req.session.user = user.id;
-    //   req.session.username = user.username;
-    //   req.session.msg = 'Authenticated as ' + user.username;
-    //   res.redirect('/');
-    // }
-    // });
-    console.log(req.body);
-    req.session.msg = "not implemented yet";
-    res.redirect('/register');
+    var user = new User({username:req.body.username});
+    console.log("after new user exports.signup");
+    if (req.body.password !== req.body.confirm) {
+        req.session.msg = "passwords are not the same";
+        res.redirect('/register');
+        return;
+    }
+    user.set('hashed_password', hashPW(req.body.password));
+    console.log("after hashing user exports.signup");
+    user.save(function(err) {
+        console.log("In exports.signup");
+        console.log(err);
+        if (err){
+          req.session.msg = err;
+          res.redirect('/register');
+        } else {
+          req.session.user = user.id;
+          req.session.username = user.username;
+          req.session.msg = 'Authenticated as ' + user.username;
+          res.redirect('/');
+        }
+    });
 };
 exports.login = function(req, res){
   User.findOne({ username: req.body.username })

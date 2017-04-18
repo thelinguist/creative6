@@ -1,7 +1,7 @@
 function onLoad() {
-    console.log(document.getElementById("message"));
+    // console.log(document.getElementById("message"));
     var message = document.getElementById("message").innerHTML;
-    if (message !== "/") {
+    if (message) {
         alert(message);
     }
 }
