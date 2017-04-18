@@ -38,7 +38,7 @@ module.exports = function(app) {
             console.log("redirecting to /")
             res.redirect('/');
         }
-        res.render('login', {msg:req.sesson.msg});
+        res.render('login', {msg:req.session.msg});
     });
 
     app.get('/logout', function(req, res){
