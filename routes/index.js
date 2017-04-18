@@ -14,6 +14,9 @@ router.get('/', function(req, res){
   res.sendFile('login.html', {root:"public"});
 });
 
+router.get('/test', function(req, res) {
+    res.send("hello world");
+});
 
 //io.on = when request detected
 //socket.on('disconnect') = when disconnect detected
