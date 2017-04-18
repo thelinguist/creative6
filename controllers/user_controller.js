@@ -94,12 +94,12 @@ exports.joinGame = function(req, res) {
     });
 };
 
-exports.joingNewGame = function(req, res) {
+exports.joinNewGame = function(req, res) {
   console.log("Begin exports.signup");
   //grab the gameCode theyput in.
   var gameCode = new Game({gameCode:req.body.gameCode});
   console.log("making a new game");
-  
+
   //save to mongoose
   game.save(function(err) {
     console.log("In exports.signup");

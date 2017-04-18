@@ -36,3 +36,7 @@ function setForm() {
     document.getElementById("chooseAction").innerHTML = value;
 }
 
+function onMainLoad() {
+    onLoad();
+    setForm();
+}
