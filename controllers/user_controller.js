@@ -93,3 +93,8 @@ exports.leaveGame = function(req, res) {
     req.session.current_game = undefined;
     res.redirect('/');
 }
+
+exports.notImplemented = function(req, res) {
+    req.session.msg = "not implemented";
+    res.redirect('/');
+}

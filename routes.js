@@ -8,7 +8,9 @@ module.exports = function(app) {
     app.get('/', function(req, res){
         console.log("/ api called");
         if (req.session.user) {
-            res.render('index', {msg:req.session.msg});
+            var message = req.session.msg;
+            req.session.msg = undefined;
+            res.render('index', {user:req.session.username,msg:message});
         } else {
             console.log("redirecting to /login");
             req.session.msg = undefined;
@@ -55,4 +57,6 @@ module.exports = function(app) {
     app.post('/register', users.register);
     app.post('/user/delete', users.deleteUser);
     app.post('/login', users.login);
+    app.post('/join', users.notImplemented);
+    app.post('/create' users.notImplemented);
 }
