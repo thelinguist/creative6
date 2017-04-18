@@ -25,6 +25,13 @@ app.controller('TestCtrl', function($scope) {
 <!--This script-section is what talks to the server to 1. tell the server if a user clicked a button, and 2. tell the webpage which pixel-circles have been colored -->
 <script src="/socket.io/socket.io.js"></script>
 <script src="/static/js/litebrite.js"></script>
+<script>
+//this is from stack overflow for the ejs stuff http://stackoverflow.com/questions/11289793/accessing-ejs-variable-in-javascript-logic
+<% if (gameCode) { %>
+     <h2>I have a game code!</h2>
+     <script>
+        var clientGameState = <%= gameCode %>            
+</script>
 </head>
 
 <body id="black">
