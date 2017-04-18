@@ -8,7 +8,7 @@ module.exports = function(app) {
     app.get('/', function(req, res){
         console.log("/ api called");
         if (req.session.user) {
-            res.render('index');
+            res.render('index', {msg:req.session.msg});
         } else {
             console.log("redirecting to /login");
             req.session.msg = undefined;
