@@ -30,8 +30,9 @@ module.exports = function(app) {
             console.log("redirecting to /");
             res.redirect('/');
         }
-        res.render('register', {msg:req.session.msg});
+        var message = req.session.msg;
         req.session.msg = undefined;
+        res.render('register', {msg:message});
     });
     app.get('/login',  function(req, res){
         console.log("/login api called");
@@ -39,8 +40,9 @@ module.exports = function(app) {
             console.log("redirecting to /")
             res.redirect('/');
         }
-        res.render('login', {msg:req.session.msg});
+        var message = req.session.msg;
         req.session.msg = undefined;
+        res.render('login', {msg:message});
     });
 
     app.get('/logout', function(req, res){
