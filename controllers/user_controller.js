@@ -1,6 +1,7 @@
 var crypto = require('crypto');
 var mongoose = require('mongoose');
 User = mongoose.model('User');
+Game = mongoose.model('Game');
 function hashPW(pwd){
     return crypto.createHash('sha256').update(pwd).
         digest('base64').toString();
@@ -80,17 +81,26 @@ exports.deleteUser = function(req, res){
 //just mimicked lab 6
 exports.joinGame = function(req, res) {
     User.findOne({_id: req.session.user}).exec(function(err, user) {
-		user.set('current_game', req.body.current_game);
-		user.save(function(err) {
-			if (err){
-			res.sessor.error = err;
-			//send a message saying it can't be found
-			} else {
-				req.session.current_game = user.current_game;
-				req.session.msg= "current game is: " + req.session.current_game;
-				res.redirect('/litebrite');
-			}
-		});
+        Game.findOne({gameCode:req.body.game}).exec(function(err, game) {
+            if (game) {
+                user.set('current_game', req.body.current_game);
+        		user.save(function(err) {
+        			if (err){
+                        req.session.msg = err;
+                        res.redirect('/');
+        			//send a message saying it can't be found
+        			} else {
+        				req.session.current_game = user.current_game;
+        				req.session.msg= "current game is: " + req.session.current_game;
+        				res.redirect('/litebrite');
+        			}
+        		});
+            }
+            else {
+                req.session.msg = "game not found";
+                res.redirect('/');
+            }
+        })
     });
 };
 
@@ -105,10 +115,11 @@ exports.joinNewGame = function(req, res) {
     console.log("In exports.signup");
     console.log(err);
     if (err){
-      res.session.error = err;
+      req.session.msg = err;
+      res.redirect('/');
     } else {
       req.session.gameCode = gameCode
-      res.redirect('/litebrite.html');
+      res.redirect('/litebrite');
     }
   });
 };
@@ -116,9 +127,13 @@ exports.joinNewGame = function(req, res) {
 exports.leaveGame = function(req, res) {
     req.session.current_game = undefined;
     res.redirect('/');
-}
+};
+
+exports.createGame = function(req, res) {
+
+};
 
 exports.notImplemented = function(req, res) {
     req.session.msg = "not implemented";
     res.redirect('/');
-}
+};
