@@ -6,7 +6,7 @@ function hashPW(pwd){
          digest('base64').toString();
 }
 exports.register = function(req, res){
-    // console.log("Begin exports.register");
+    console.log("Begin exports.register");
     // var user = new User({username:req.body.username});
     // console.log("after new user exports.signup");
     // // if (req.body.password !== )
@@ -16,7 +16,7 @@ exports.register = function(req, res){
     // console.log("In exports.signup");
     // console.log(err);
     // if (err){
-    //   res.session.error = err;
+    //   req.session.msg = err;
     //   res.redirect('/register');
     // } else {
     //   req.session.user = user.id;
@@ -26,7 +26,7 @@ exports.register = function(req, res){
     // }
     // });
     console.log(req.body);
-    // req.session.error = "not implemented yet";
+    req.session.msg = "not implemented yet";
     res.redirect('/register');
 };
 exports.login = function(req, res){
@@ -55,22 +55,6 @@ exports.login = function(req, res){
         res.redirect('/login');
       });
     }
-  });
-};
-exports.updateUser = function(req, res){
-  User.findOne({ _id: req.session.user })
-  .exec(function(err, user) {
-    user.set('email', req.body.email);
-    user.set('color', req.body.color);
-    user.save(function(err) {
-      if (err){
-        res.sessor.error = err;
-      } else {
-        req.session.msg = 'User Updated.';
-        req.session.color = req.body.color;
-      }
-      res.redirect('/user');
-    });
   });
 };
 exports.deleteUser = function(req, res){
