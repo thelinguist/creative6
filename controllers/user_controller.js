@@ -24,8 +24,8 @@ exports.register = function(req, res){
   //     req.session.msg = 'Authenticated as ' + user.username;
   //     res.redirect('/');
   //   }
+  // });
   console.log(req.body);
-  });
 };
 exports.login = function(req, res){
   User.findOne({ username: req.body.username })
