@@ -15,7 +15,7 @@ router.get('/', function(req, res){
 });
 
 router.get('/test', function(req, res) {
-    res.send("hello world");
+    res.sendFile('login.html', {root:'publlic'});
 });
 
 //io.on = when request detected
