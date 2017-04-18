@@ -76,18 +76,42 @@ exports.deleteUser = function(req, res){
     });
 };
 
+
+//just mimicked lab 6
 exports.joinGame = function(req, res) {
     User.findOne({_id: req.session.user}).exec(function(err, user) {
-        if (!err) {
-            req.session.current_game = user.current_game;
-            res.redirect('/litebrite');
-        }
+		user.set('current_game', req.body.current_game);
+		user.save(function(err) {
+			if (err){
+			res.sessor.error = err;
+			//send a message saying it can't be found
+			} else {
+				req.session.current_game = user.current_game;
+				req.session.msg= "current game is: " + req.session.current_game;
+				res.redirect('/litebrite');
+			}
+		});
     });
 };
 
 exports.joingNewGame = function(req, res) {
-
-}
+  console.log("Begin exports.signup");
+  //grab the gameCode theyput in.
+  var gameCode = new Game({gameCode:req.body.gameCode});
+  console.log("making a new game");
+  
+  //save to mongoose
+  game.save(function(err) {
+    console.log("In exports.signup");
+    console.log(err);
+    if (err){
+      res.session.error = err;
+    } else {
+      req.session.gameCode = gameCode
+      res.redirect('/litebrite.html');
+    }
+  });
+};
 
 exports.leaveGame = function(req, res) {
     req.session.current_game = undefined;
