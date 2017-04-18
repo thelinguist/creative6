@@ -19,7 +19,7 @@ module.exports = function(app) {
             res.render('litebrite');
         } else {
             console.log("redirecting to /login");
-            res.redirect('/login');
+            res.redirect('/login', {msg:req.session.msg});
         }
     });
     app.get('/register', function(req, res){
@@ -28,7 +28,7 @@ module.exports = function(app) {
             console.log("redirecting to /");
             res.redirect('/');
         }
-        res.render('register');
+        res.render('register', {msg:req.session.msg});
     });
     app.get('/login',  function(req, res){
         console.log("/login api called");
