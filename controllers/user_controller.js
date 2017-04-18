@@ -6,7 +6,7 @@ function hashPW(pwd){
          digest('base64').toString();
 }
 exports.register = function(req, res){
-  // console.log("Begin exports.register");
+  console.log("Begin exports.register");
   // var user = new User({username:req.body.username});
   // console.log("after new user exports.signup");
   // if (req.body.password !== )
